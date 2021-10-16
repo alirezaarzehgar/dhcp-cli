@@ -62,7 +62,7 @@ main (int argc, char const *argv[])
           if (databaseInit (optarg))
             printf ("database initialized successfully\n");
           else
-            fprintf (stderr, "can't create db\n");
+            fprintf (stderr, "already exists\n");
 
           exit (EXIT_SUCCESS);
           break;
