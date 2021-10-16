@@ -7,6 +7,11 @@ option(DEBUG "debug mode" OFF)
 
 if(DEBUG)
     set(DHCP_LEASE_DEST_FAKE_DATA ${CMAKE_CURRENT_BINARY_DIR}/dhcp-lease/tests/databases)
+
+    if(NOT EXISTS ${DHCP_LEASE_DEST_FAKE_DATA})
+        message(STATUS "Fuck you!!! i can't find db file!")
+    endif()
+    
 else()
     set(DHCP_LEASE_DEST_FAKE_DATA /var/lib/dhcp)       
 endif()
