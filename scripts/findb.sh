@@ -6,4 +6,4 @@ dbfile=$(find $workingDir -name "dhcpd.db")
 
 dbpath=$(realpath $dbfile)
 
-dirname $dbpath | head -1
+dirname $dbpath | head -1 | tr -d '\n'
