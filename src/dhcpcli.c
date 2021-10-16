@@ -11,10 +11,43 @@
 
 #include "cli/dhcpcli.h"
 
+static struct option long_option[] =
+{
+  {"show", required_argument, NULL, 's'},
+  {"add", required_argument, NULL, 'a'},
+  {"edir", required_argument, NULL, 'e'},
+  {"database", required_argument, NULL, 'f'},
+};
+
 int
 main (int argc, char const *argv[])
 {
-  printf ("hello cli\n");
-  printf ("path : %s\n", DHCP_DATABASE_PATH);
+  int opt;
+
+  int index;
+
+  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:", long_option,
+                             &index)) != -1)
+    {
+      switch (opt)
+        {
+        case 's':
+          /* TODO */
+          break;
+
+        case 'a':
+          /* TODO */
+          break;
+
+        case 'e':
+          /* TODO */
+          break;
+
+        case 'f':
+          /* TODO */
+          break;
+        }
+    }
+
   return 0;
 }
