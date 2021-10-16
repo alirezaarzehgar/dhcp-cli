@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(PROJECT_NAME dhcpcli)
+set(SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/scripts)
 set(DHCP_LEASE_GENERATED_FAKE_DATA ${CMAKE_CURRENT_BINARY_DIR}/dhcp-lease/tests/databases/dhcpd.db)
 
 option(DEBUG "debug mode" OFF)
@@ -9,7 +10,15 @@ if(DEBUG)
     set(DHCP_LEASE_DEST_FAKE_DATA ${CMAKE_CURRENT_BINARY_DIR}/dhcp-lease/tests/databases)
 
     if(NOT EXISTS ${DHCP_LEASE_DEST_FAKE_DATA})
-        message(STATUS "Fuck you!!! i can't find db file!")
+        execute_process(COMMAND ${SCRIPTS}/findb.sh ${SOURCE_DIR}
+        RESULT_VARIABLE FINDB_RESULT
+        OUTPUT_VARIABLE FINDB_OUT)
+
+        if(NOT FINDB_OUT)
+            message(FATAL_ERROR "dbfile not found")
+        endif()
+
+        set(DHCP_LEASE_DEST_FAKE_DATA ${FINDB_OUT})
     endif()
     
 else()
