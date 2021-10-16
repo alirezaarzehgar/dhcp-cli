@@ -7,4 +7,6 @@ bool databaseExists (char *path);
 
 bool databaseInit (char *path);
 
+bool isDatabaseWritable (char *path);
+
 #endif // DHCPD_FILE_H

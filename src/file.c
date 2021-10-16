@@ -21,16 +21,21 @@ databaseExists (char *path)
 }
 
 bool
+isDatabaseWritable (char *path)
+{
+  return access (path, W_OK) == 0;
+}
+
+bool
 databaseInit (char *path)
 {
-  int retval;
+  dhcpLeaseInit (path);
 
-  if (! (retval = databaseExists (path)))
-    return retval;
+  dhcpLeaseInitConf();
 
-  databaseInit (path);
-
-  /* TODO */
+  dhcpLeaseInitPool();
 
   dhcpLeaseClose();
+
+  return true;
 }
