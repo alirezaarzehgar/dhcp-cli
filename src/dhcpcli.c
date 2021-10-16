@@ -19,7 +19,7 @@ static struct option long_option[] =
   {"add", required_argument, NULL, 'a'},
   {"edir", required_argument, NULL, 'e'},
   {"database", required_argument, NULL, 'f'},
-  {"init", required_argument, NULL, 'i'},
+  {"init", no_argument, NULL, 'i'},
 };
 
 int
@@ -35,7 +35,7 @@ main (int argc, char const *argv[])
 
   strncpy (database, DHCP_DATABASE_PATH, DHCPCLI_MAX_FILEPATH_LEN);
 
-  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i:",
+  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i",
                              long_option,
                              &index)) != -1)
     {
@@ -59,7 +59,7 @@ main (int argc, char const *argv[])
           break;
 
         case 'i':
-          if (databaseInit (optarg))
+          if (databaseInit (database))
             printf ("database initialized successfully\n");
           else
             fprintf (stderr, "can't create db\n");
