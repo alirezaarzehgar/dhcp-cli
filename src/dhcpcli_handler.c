@@ -10,10 +10,12 @@
  */
 
 #include "cli/dhcpcli_handler.h"
+#include "cli/file.h"
 
 void
 dhcpcliConfigShow (char *db, char *arg)
 {
+  printf ("%s & %s", db, arg);
   /* TODO dhcpcliConfigShow */
 }
 
@@ -30,22 +32,34 @@ dhcpcliConfigAdd (char *db, char *arg)
 }
 
 void
-dhcpcliConfigHandler (int mode, char *db, char *arg)
+handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
+                     dhcpcliHandler_t add, dhcpcliHandler_t edit)
 {
+  dhcpLeaseInit (db);
+
   switch (mode)
     {
     case MODE_SHOW:
-      dhcpcliConfigShow (db, arg);
+      show (db, arg);
       break;
 
     case MODE_ADD:
-      dhcpcliConfigEdit (db, arg);
+      add (db, arg);
       break;
 
     case MODE_EDIT:
-      dhcpcliConfigAdd (db, arg);
+      edit (db, arg);
       break;
     }
+
+  dhcpLeaseClose();
+}
+
+void
+dhcpcliConfigHandler (int mode, char *db, char *arg)
+{
+  handleToCorrectMode (mode, db, arg, dhcpcliConfigShow, dhcpcliConfigAdd,
+                       dhcpcliConfigEdit);
 }
 
 void
@@ -69,18 +83,6 @@ dhcpcliLeaseAdd (char *db, char *arg)
 void
 dhcpcliLeaseHandler (int mode, char *db, char *arg)
 {
-  switch (mode)
-    {
-    case MODE_SHOW:
-      dhcpcliLeaseShow (db, arg);
-      break;
-
-    case MODE_ADD:
-      dhcpcliLeaseEdit (db, arg);
-      break;
-
-    case MODE_EDIT:
-      dhcpcliLeaseAdd (db, arg);
-      break;
-    }
+  handleToCorrectMode (mode, db, arg, dhcpcliLeaseShow, dhcpcliLeaseAdd,
+                       dhcpcliLeaseEdit);
 }
