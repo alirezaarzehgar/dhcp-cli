@@ -17,7 +17,7 @@ static struct option long_option[] =
 {
   {"show", required_argument, NULL, 's'},
   {"add", required_argument, NULL, 'a'},
-  {"edir", required_argument, NULL, 'e'},
+  {"edit", required_argument, NULL, 'e'},
   {"database", required_argument, NULL, 'f'},
   {"init", required_argument, NULL, 'i'},
 };
