@@ -16,6 +16,7 @@ In this program you can :
 mkdir build
 cd build
 cmake ..
+cmake --build .
 ./dhcpcli
 ```
 
@@ -25,5 +26,6 @@ cmake ..
 mkdir build
 cd build
 cmake .. -DDEBUG=on
+cmake --build .
 ./dhcpcli
 ```
