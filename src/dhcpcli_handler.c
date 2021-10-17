@@ -15,8 +15,15 @@
 void
 dhcpcliConfigShow (char *arg)
 {
-  printf ("%s", arg);
-  /* TODO dhcpcliConfigShow */
+    /*TODO*/
+  if (arg == NULL)
+    {
+      dhcpLeaseConfigResult_t conf;
+
+      for (int i = 1; conf.id > 0; conf = dhcpLeaseGetConfigById (i), i++)
+        printf ("%dmask : %s\n", conf.mask);
+    }
+
 }
 
 void
