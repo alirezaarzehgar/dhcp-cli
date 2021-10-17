@@ -35,7 +35,8 @@ main (int argc, char const *argv[])
 
   strncpy (database, DHCP_DATABASE_PATH, DHCPCLI_MAX_FILEPATH_LEN);
 
-  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i", long_option,
+  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i:",
+                             long_option,
                              &index)) != -1)
     {
       switch (opt)
@@ -58,8 +59,10 @@ main (int argc, char const *argv[])
           break;
 
         case 'i':
-          if (databaseInit (database))
+          if (databaseInit (optarg))
             printf ("database initialized successfully\n");
+          else
+            fprintf (stderr, "already exists\n");
 
           exit (EXIT_SUCCESS);
           break;

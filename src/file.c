@@ -13,6 +13,8 @@
 #include "lease/lease.h"
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
+#include <libgen.h>
 
 bool
 databaseExists (char *path)
@@ -21,16 +23,35 @@ databaseExists (char *path)
 }
 
 bool
+isDatabaseWritable (char *path)
+{
+  char dir[strlen (path)];
+
+  strcpy (dir, path);
+
+  dirname (dir);
+
+  return  access (dir, W_OK) == 0;
+}
+
+bool
 databaseInit (char *path)
 {
-  int retval;
+  /* TODO error handling and reporting should be out of function */
+  if (! isDatabaseWritable (path))
+    {
+      fprintf (stderr, "Unable to write on database: %s\n", strerror (errno));
+      exit (EXIT_FAILURE);
+    }
 
-  if (! (retval = databaseExists (path)))
-    return retval;
-
-  databaseInit (path);
-
-  /* TODO */
+  if (
+    !dhcpLeaseInit (path) ||
+    !dhcpLeaseInitConf() ||
+    !dhcpLeaseInitPool()
+  )
+    return false;
 
   dhcpLeaseClose();
+
+  return true;
 }
