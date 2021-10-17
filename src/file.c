@@ -37,6 +37,7 @@ isDatabaseWritable (char *path)
 bool
 databaseInit (char *path)
 {
+  /* TODO error handling and reporting should be out of function */
   if (! isDatabaseWritable (path))
     {
       fprintf (stderr, "Unable to write on database: %s\n", strerror (errno));
