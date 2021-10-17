@@ -13,20 +13,20 @@
 #include "cli/file.h"
 
 void
-dhcpcliConfigShow (char *db, char *arg)
+dhcpcliConfigShow (char *arg)
 {
-  printf ("%s & %s", db, arg);
+  printf ("%s", arg);
   /* TODO dhcpcliConfigShow */
 }
 
 void
-dhcpcliConfigEdit (char *db, char *arg)
+dhcpcliConfigEdit (char *arg)
 {
   /* TODO dhcpcliConfigEdit */
 }
 
 void
-dhcpcliConfigAdd (char *db, char *arg)
+dhcpcliConfigAdd (char *arg)
 {
   /* TODO dhcpcliConfigAdd */
 }
@@ -40,15 +40,15 @@ handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
   switch (mode)
     {
     case MODE_SHOW:
-      show (db, arg);
+      show (arg);
       break;
 
     case MODE_ADD:
-      add (db, arg);
+      add (arg);
       break;
 
     case MODE_EDIT:
-      edit (db, arg);
+      edit (arg);
       break;
     }
 
@@ -63,19 +63,19 @@ dhcpcliConfigHandler (int mode, char *db, char *arg)
 }
 
 void
-dhcpcliLeaseShow (char *db, char *arg)
+dhcpcliLeaseShow (char *arg)
 {
   /* TODO dhcpcliLeaseShow */
 }
 
 void
-dhcpcliLeaseEdit (char *db, char *arg)
+dhcpcliLeaseEdit (char *arg)
 {
   /* TODO dhcpcliLeaseEdit */
 }
 
 void
-dhcpcliLeaseAdd (char *db, char *arg)
+dhcpcliLeaseAdd (char *arg)
 {
   /* TODO dhcpcliLeaseAdd */
 }
