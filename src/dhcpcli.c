@@ -12,6 +12,7 @@
 #include "cli/dhcpcli.h"
 #include "cli/file.h"
 #include "lease/lease.h"
+#include "cli/dhcpcli_handler.h"
 
 static struct option long_option[] =
 {
@@ -19,7 +20,7 @@ static struct option long_option[] =
   {"add", required_argument, NULL, 'a'},
   {"edir", required_argument, NULL, 'e'},
   {"database", required_argument, NULL, 'f'},
-  {"init", required_argument, NULL, 'i'},
+  {"init", optional_argument, NULL, 'i'},
   {"config", optional_argument, NULL, 'c'},
   {"leases", optional_argument, NULL, 'l'},
 };
@@ -37,7 +38,7 @@ main (int argc, char const *argv[])
 
   strncpy (database, DHCP_DATABASE_PATH, DHCPCLI_MAX_FILEPATH_LEN);
 
-  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i:c::l::",
+  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i::c::l::",
                              long_option,
                              &index)) != -1)
     {
@@ -61,7 +62,7 @@ main (int argc, char const *argv[])
           break;
 
         case 'i':
-          if (databaseInit (optarg))
+          if (databaseInit (optarg == NULL ? database : optarg))
             printf ("database initialized successfully\n");
           else
             fprintf (stderr, "already exists\n");
@@ -70,7 +71,7 @@ main (int argc, char const *argv[])
           break;
 
         case 'c':
-
+          dhcpcliConfigHandler (programMode, database, optarg);
           break;
 
         case 'l':
