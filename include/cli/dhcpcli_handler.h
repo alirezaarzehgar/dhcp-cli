@@ -4,6 +4,8 @@
 #if !defined(DHCPCLI_HANDLER_H)
 #define DHCPCLI_HANDLER_H
 
+typedef void (*dhcpcliHandler_t) (char *db, char *arg);
+
 void dhcpcliConfigShow (char *db, char *arg);
 
 void dhcpcliConfigEdit (char *db, char *arg);

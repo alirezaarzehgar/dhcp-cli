@@ -16,9 +16,9 @@
 
 static struct option long_option[] =
 {
-  {"show", required_argument, NULL, 's'},
-  {"add", required_argument, NULL, 'a'},
-  {"edir", required_argument, NULL, 'e'},
+  {"show", no_argument, NULL, 's'},
+  {"add", no_argument, NULL, 'a'},
+  {"edir", no_argument, NULL, 'e'},
   {"database", required_argument, NULL, 'f'},
   {"init", optional_argument, NULL, 'i'},
   {"config", optional_argument, NULL, 'c'},
@@ -38,7 +38,7 @@ main (int argc, char const *argv[])
 
   strncpy (database, DHCP_DATABASE_PATH, DHCPCLI_MAX_FILEPATH_LEN);
 
-  while ((opt = getopt_long (argc, (char *const *)argv, "s:a:e:f:i::c::l::",
+  while ((opt = getopt_long (argc, (char *const *)argv, "saef:i::c::l::",
                              long_option,
                              &index)) != -1)
     {

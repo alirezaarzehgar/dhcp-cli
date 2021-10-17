@@ -14,6 +14,7 @@
 void
 dhcpcliConfigShow (char *db, char *arg)
 {
+    printf("%s & %s", db, arg);
   /* TODO dhcpcliConfigShow */
 }
 
@@ -30,8 +31,16 @@ dhcpcliConfigAdd (char *db, char *arg)
 }
 
 void
+handleToCorrectMode (dhcpcliHandler_t show, dhcpcliHandler_t add,
+                     dhcpcliHandler_t edit)
+{
+
+}
+
+void
 dhcpcliConfigHandler (int mode, char *db, char *arg)
 {
+    printf("Hi!");
   switch (mode)
     {
     case MODE_SHOW:
