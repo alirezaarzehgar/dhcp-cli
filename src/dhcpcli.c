@@ -71,6 +71,12 @@ main (int argc, char const *argv[])
           break;
 
         case 'c':
+          if (!databaseExists (database))
+            {
+              fprintf (stderr, "database notfound\n");
+              exit (EXIT_FAILURE);
+            }
+
           dhcpcliConfigHandler (programMode, database, optarg);
           break;
 

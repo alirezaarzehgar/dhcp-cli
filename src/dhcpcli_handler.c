@@ -10,6 +10,7 @@
  */
 
 #include "cli/dhcpcli_handler.h"
+#include "cli/file.h"
 
 void
 dhcpcliConfigShow (char *db, char *arg)
@@ -34,6 +35,8 @@ void
 handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
                      dhcpcliHandler_t add, dhcpcliHandler_t edit)
 {
+  dhcpLeaseInit (db);
+
   switch (mode)
     {
     case MODE_SHOW:
@@ -48,6 +51,8 @@ handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
       edit (db, arg);
       break;
     }
+
+  dhcpLeaseClose();
 }
 
 void
