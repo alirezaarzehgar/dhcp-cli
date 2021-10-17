@@ -26,12 +26,11 @@ bool
 isDatabaseWritable (char *path)
 {
   char dir[strlen (path)];
+  char *res;
 
   strcpy (dir, path);
 
-  dirname (dir);
-
-  return  access (dir, W_OK) == 0;
+  return  access (dirname (dir), W_OK) == 0;
 }
 
 bool
