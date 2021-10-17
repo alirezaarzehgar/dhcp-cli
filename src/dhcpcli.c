@@ -80,7 +80,5 @@ main (int argc, char const *argv[])
         }
     }
 
-  printf ("%s\n", database);
-
   return 0;
 }
