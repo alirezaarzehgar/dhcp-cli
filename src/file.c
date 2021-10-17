@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <libgen.h>
 
 bool
 databaseExists (char *path)
@@ -21,31 +22,16 @@ databaseExists (char *path)
   return access (path, F_OK) == 0;
 }
 
-
-/* TODO shit code */
 bool
 isDatabaseWritable (char *path)
 {
-  char tmp[strlen (path)];
+  char dir[strlen (path)];
 
-  memcpy (tmp, path, strlen (path));
+  strcpy (dir, path);
 
-  for (size_t i = strlen (tmp); i > 0; i--)
-    {
-      if (tmp[i] == '/')
-        {
-          tmp[i] = '\0';
+  dirname (dir);
 
-          break;
-        }
-      else
-        tmp[i] = '\0';
-    }
-
-  if (!databaseExists (tmp))
-    strcpy (tmp, ".");
-
-  return access (tmp, W_OK) == 0;
+  return  access (dir, W_OK) == 0;
 }
 
 bool
