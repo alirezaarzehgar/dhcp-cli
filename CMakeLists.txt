@@ -30,6 +30,7 @@ add_definitions(-DDHCP_DATABASE_PATH="${DHCP_LEASE_DEST_FAKE_DATA}/dhcpd.db")
 project(${PROJECT_NAME})
 
 add_executable(${PROJECT_NAME}
+    src/dhcpcli_handler.c
     src/file.c
     src/dhcpcli.c
 )
