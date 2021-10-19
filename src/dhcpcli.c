@@ -23,6 +23,7 @@ static struct option long_option[] =
   {"init", optional_argument, NULL, 'i'},
   {"config", optional_argument, NULL, 'c'},
   {"leases", optional_argument, NULL, 'l'},
+  {NULL, 0, NULL, 0},
 };
 
 int
@@ -89,6 +90,9 @@ main (int argc, char const *argv[])
 
           dhcpcliLeaseHandler (programMode, database, optarg);
           break;
+
+        default:
+          exit(EXIT_FAILURE);
         }
     }
 
