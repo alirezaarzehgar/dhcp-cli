@@ -4,6 +4,9 @@
 #if !defined(DHCPCLI_HANDLER_H)
 #define DHCPCLI_HANDLER_H
 
+#define L           strlen
+#define UNDEFINED_STRING            "not found"
+
 typedef void (*dhcpcliHandler_t) (char *arg);
 
 void dhcpcliConfigShow (char *arg);

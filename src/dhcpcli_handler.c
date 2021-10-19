@@ -27,57 +27,48 @@ printConf (dhcpLeaseConfigResult_t cfg)
 }
 
 void
+printLease (dhcpLeasePoolResult_t lease)
+{
+  printf ("id : %d\n", lease.id);
+  printf ("config id : %d\n", lease.config.id);
+  printf ("ip : %s\n", lease.ip);
+  printf ("host : %s\n", L (lease.host) != 0 ? lease.host : UNDEFINED_STRING);
+  printf ("mac : %s\n", L (lease.mac) != 0 ? lease.mac : UNDEFINED_STRING);
+  printf ("\n");
+}
+
+#define SHOW_HANDLER_FUNCTIONALITY(getXByIdCallback, printXCallback, XCountCallback)      \
+do {      \
+  int id = atoi (arg != NULL ? arg : "");     \
+        \
+  if (id > 0)     \
+    {       \
+      printXCallback (     \
+        getXByIdCallback (id)     \
+      );      \
+    }       \
+  else        \
+    {     \
+      for (size_t i = 1; i <= XCountCallback(); i++)      \
+        {     \
+          printXCallback (     \
+            getXByIdCallback (i)      \
+          );      \
+        }       \
+    }     \
+}while(0)
+
+void
 dhcpcliConfigShow (char *arg)
 {
-  int id = atoi (arg != NULL ? arg : "");
-
-  dhcpLeaseConfigResult_t conf;
-  int i = 1;
-
-  if (id > 0)
-    {
-      printConf (
-        dhcpLeaseGetConfigById (id)
-      );
-
-      return;
-    }
-
-
-  do
-    {
-      bzero (&conf, sizeof (dhcpLeaseConfigResult_t));
-      conf = dhcpLeaseGetConfigById (i);
-      printConf (conf);
-    }
-  while (conf.id == i++);
+  SHOW_HANDLER_FUNCTIONALITY (dhcpLeaseGetConfigById, printConf,
+                              dhcpLeaseConfCount);
 }
 
 void
 dhcpcliConfigEdit (char *arg)
 {
-  int id = atoi (arg != NULL ? arg : "");
-
-  dhcpLeaseConfigResult_t conf;
-  int i = 1;
-
-  if (id > 0)
-    {
-      printConf (
-         (id)
-      );
-
-      return;
-    }
-
-
-  do
-    {
-      bzero (&conf, sizeof (dhcpLeaseConfigResult_t));
-      conf = dhcpLeaseGetConfigById (i);
-      printConf (conf);
-    }
-  while (conf.id == i++);
+  /* TODO dhcpcliConfigEdit */
 }
 
 void
@@ -120,7 +111,8 @@ dhcpcliConfigHandler (int mode, char *db, char *arg)
 void
 dhcpcliLeaseShow (char *arg)
 {
-  /* TODO dhcpcliLeaseShow */
+  SHOW_HANDLER_FUNCTIONALITY (dhcpLeasePoolGetById, printLease,
+                              dhcpLeasePoolCount);
 }
 
 void
