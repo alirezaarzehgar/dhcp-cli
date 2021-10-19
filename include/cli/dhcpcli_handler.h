@@ -4,6 +4,25 @@
 #if !defined(DHCPCLI_HANDLER_H)
 #define DHCPCLI_HANDLER_H
 
+#define L           strlen
+#define UNDEFINED_STRING            "not found"
 
+typedef void (*dhcpcliHandler_t) (char *arg);
+
+void dhcpcliConfigShow (char *arg);
+
+void dhcpcliConfigEdit (char *arg);
+
+void dhcpcliConfigAdd (char *arg);
+
+void dhcpcliConfigHandler (int mode, char *db, char *arg);
+
+void dhcpcliLeaseShow (char *arg);
+
+void dhcpcliLeaseEdit (char *arg);
+
+void dhcpcliLeaseAdd (char *arg);
+
+void dhcpcliLeaseHandler (int mode, char *db, char *arg);
 
 #endif // DHCPCLI_HANDLER_H
