@@ -56,7 +56,28 @@ dhcpcliConfigShow (char *arg)
 void
 dhcpcliConfigEdit (char *arg)
 {
-  /* TODO dhcpcliConfigEdit */
+  int id = atoi (arg != NULL ? arg : "");
+
+  dhcpLeaseConfigResult_t conf;
+  int i = 1;
+
+  if (id > 0)
+    {
+      printConf (
+         (id)
+      );
+
+      return;
+    }
+
+
+  do
+    {
+      bzero (&conf, sizeof (dhcpLeaseConfigResult_t));
+      conf = dhcpLeaseGetConfigById (i);
+      printConf (conf);
+    }
+  while (conf.id == i++);
 }
 
 void
