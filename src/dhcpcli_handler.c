@@ -102,10 +102,10 @@ dhcpcliConfigEdit (char *arg)
 
       printConf (conf);
 
-      if (xinputConfirm ("is that right [Y/n] ? "))
-        {
-          /* TODO update config */
-        }
+      if (xinputConfirm ("is that right [Y/n] ? ") && dhcpLeaseUpdateConfig (conf))
+        printf ("updated successfully\n");
+      else
+        fprintf (stderr, "failed to updating config\n");
     }
 }
 
@@ -130,11 +130,10 @@ dhcpcliConfigAdd (char *arg)
 
   printConf (conf);
 
-  if (xinputConfirm ("is that right [Y/n] ? "))
-    {
-      /* TODO add config */
-    }
-
+  if (xinputConfirm ("is that right [Y/n] ? ") && dhcpLeaseSaveNewConfig (conf))
+    printf ("recorded successfully\n");
+  else
+    fprintf (stderr, "failed to record config\n");
 }
 
 void
@@ -162,7 +161,8 @@ handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
 }
 
 void
-dhcpcliConfigHandler (int mode, char *db, char *arg){
+dhcpcliConfigHandler (int mode, char *db, char *arg)
+{
   handleToCorrectMode (mode, db, arg, dhcpcliConfigShow, dhcpcliConfigAdd,
                        dhcpcliConfigEdit);
 }
@@ -204,10 +204,10 @@ dhcpcliLeaseEdit (char *arg)
 
       printLease (lease);
 
-      if (xinputConfirm ("is that right [Y/n] ? "))
-        {
-          /* TODO update lease */
-        }
+      if (xinputConfirm ("is that right [Y/n] ? ") && dhcpLeaseUpdateLease (lease))
+        printf ("updated successfully\n");
+      else
+        fprintf (stderr, "failed to updating lease\n");
     }
 }
 
@@ -236,10 +236,10 @@ dhcpcliLeaseAdd (char *unsed)
 
   printLease (lease);
 
-  if (xinputConfirm ("is that right [Y/n] ? "))
-    {
-      /* TODO Add lease */
-    }
+  if (xinputConfirm ("is that right [Y/n] ? ") && dhcpLeaseSaveNewLease (lease))
+    printf ("recorded successfully\n");
+  else
+    fprintf (stderr, "failed to record config\n");
 }
 
 void
