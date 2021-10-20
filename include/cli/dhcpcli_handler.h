@@ -60,10 +60,8 @@ xgetSafeIntWithFormatParser (int *intPtr, char *const message,
 
   getSafeStr (&input);
 
-  int leaseTime = atoi (input.str);
-
   if (intPtr != NULL)
-    *intPtr = leaseTime == 0 ? defaultValue : leaseTime;
+    *intPtr = atoi (input.str) == 0 ? defaultValue : atoi (input.str);
 
   safeInputClose (&input);
 }

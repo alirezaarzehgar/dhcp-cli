@@ -68,7 +68,7 @@ do {      \
 void
 dhcpcliConfigShow (char *arg)
 {
-  SHOW_HANDLER_FUNCTIONALITY (dhcpLeaseGetConfigByUserId, printConf,
+  SHOW_HANDLER_FUNCTIONALITY (dhcpLeaseGetConfigById, printConf,
                               dhcpLeaseConfCount);
 }
 
@@ -115,7 +115,6 @@ dhcpcliConfigAdd (char *arg)
   dhcpLeaseConfigResult_t conf;
   bzero (&conf, sizeof (conf));
 
-  printf ("id : %d\n", conf.id);
   xgetSafeLineWithFormatParser (conf.mask, sizeof (conf.mask),
                                 "mask : ", NULL);
 
@@ -218,11 +217,12 @@ dhcpcliLeaseAdd (char *unsed)
 
   bzero (&lease, sizeof (lease));
 
-  printf ("id : %d\n", lease.id);
+  int configId;
+
   xgetSafeLineWithFormatParser (lease.host, sizeof (lease.host),
                                 "hostname : ", NULL);
 
-  xgetSafeIntWithFormatParser (&lease.config.id, "config id [%d] : ",
+  xgetSafeIntWithFormatParser (&configId, "config id [%d] : ",
                                dhcpLeaseConfCount());
 
   xgetSafeLineWithFormatParser (lease.mac, sizeof (lease.mac),
@@ -233,6 +233,8 @@ dhcpcliLeaseAdd (char *unsed)
 
   xgetSafeIntWithFormatParser ((int *)&lease.lease_flag,
                                "do you want to set lease flag [%d](0/1) ? ", true);
+
+  lease.config.id = configId;
 
   printLease (lease);
 
