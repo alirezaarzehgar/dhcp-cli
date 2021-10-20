@@ -155,8 +155,14 @@ handleToCorrectMode (int mode, char *db, char *arg, dhcpcliHandler_t show,
 
     case MODE_EDIT:
       edit (arg);
-      break;Confar *db, char *arg)
-{
+      break;
+    }
+
+  dhcpLeaseClose();
+}
+
+void
+dhcpcliConfigHandler (int mode, char *db, char *arg){
   handleToCorrectMode (mode, db, arg, dhcpcliConfigShow, dhcpcliConfigAdd,
                        dhcpcliConfigEdit);
 }
