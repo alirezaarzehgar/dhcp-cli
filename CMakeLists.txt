@@ -73,3 +73,5 @@ target_include_directories(${PROJECT_NAME}
 )
 
 add_subdirectory(dhcp-lease)
+
+file(COPY ${SCRIPTS}/seed-db.sh DESTINATION .)
