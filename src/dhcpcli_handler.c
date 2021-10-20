@@ -68,7 +68,7 @@ do {      \
 void
 dhcpcliConfigShow (char *arg)
 {
-  SHOW_HANDLER_FUNCTIONALITY (dhcpLeaseGetConfigById, printConf,
+  SHOW_HANDLER_FUNCTIONALITY (dhcpLeaseGetConfigByUserId, printConf,
                               dhcpLeaseConfCount);
 }
 
@@ -79,7 +79,7 @@ dhcpcliConfigEdit (char *arg)
 
   if (id != 0)
     {
-      dhcpLeaseConfigResult_t conf = dhcpLeaseGetConfigById (id);
+      dhcpLeaseConfigResult_t conf = dhcpLeaseGetConfigByUserId (id);
 
       if (!isConfValid (conf))
         {
